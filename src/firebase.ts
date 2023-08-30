@@ -22,9 +22,11 @@ export const getMessagingToken = async () => {
   let currentToken = "";
   if (!messaging) return;
   try {
+    // Web Push certificates: https://prnt.sc/OARpF8vQB5av
     currentToken = await messaging.getToken({
       // vapidKey: process.env.REACT_APP_FIREBASE_FCM_VAPID_KEY,
-      vapidKey: 'BCnamhfY7rvjTs4CDvtr072jKgOOIAtY9h_7rhk4IU5SbOTDQ3ehddBXCyPrDKgBuo7dhxwzFOrt8qByNiODu4c',
+      // vapidKey: 'BCnamhfY7rvjTs4CDvtr072jKgOOIAtY9h_7rhk4IU5SbOTDQ3ehddBXCyPrDKgBuo7dhxwzFOrt8qByNiODu4c',
+      vapidKey: 'BKGk_V4q4oYvwglTnR2N-y5-xRBlMRI3zRRHE-VQQ21nt-1Kzd1M78mIjRik76R0AZEEoDGPzLVOEjWeLdN25Lk',   
     });
     console.log("FCM registration token", currentToken);
   } catch (error) {
