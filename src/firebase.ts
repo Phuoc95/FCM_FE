@@ -17,6 +17,30 @@ if (typeof window !== "undefined") {
   }
 }
 
+const copyContent = async (text: any) => {
+  try {
+    await navigator.clipboard.writeText(text);
+    console.log('Content copied to clipboard');
+  } catch (err) {
+    console.error('Failed to copy: ', err);
+  }
+}
+
+
+export const copyToClipboard = (text: any) => {
+  // var dummy = document.createElement("textarea");
+  // // to avoid breaking orgain page when copying more words
+  // // cant copy when adding below this code
+  // // dummy.style.display = 'none'
+  // document.body.appendChild(dummy);
+  // //Be careful if you use texarea. setAttribute('value', value), which works with "input" does not work with "textarea". – Eduard
+  // dummy.value = text;
+  // dummy.select();
+  // document.execCommand("copy");
+  // document.body.removeChild(dummy);
+}
+
+
 export const getMessagingToken = async () => {
   // debugger
   let currentToken = "";
@@ -29,6 +53,10 @@ export const getMessagingToken = async () => {
       vapidKey: 'BKGk_V4q4oYvwglTnR2N-y5-xRBlMRI3zRRHE-VQQ21nt-1Kzd1M78mIjRik76R0AZEEoDGPzLVOEjWeLdN25Lk',   
     });
     console.log("FCM registration token", currentToken);
+
+    copyContent(currentToken);
+
+    
   } catch (error) {
     console.log("An error occurred while retrieving token aaaa. ", error);
   }
