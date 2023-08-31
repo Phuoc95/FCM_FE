@@ -4,8 +4,9 @@ import "firebase/messaging";
 import { firebaseConfig } from './constants';
 import axios from 'axios';
 
-const BASE_URL_API = 'http://52.220.161.34:8081';
 // const BASE_URL_API = 'http://127.0.0.1:8085';
+// const BASE_URL_API = 'http://52.220.161.34:8081';
+const BASE_URL_API = 'https://laravel9xbase.tamkydv.site';
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
