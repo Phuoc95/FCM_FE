@@ -2,6 +2,10 @@ import { useEffect } from 'react';
 import firebase from "firebase/app";
 import "firebase/messaging";
 import { firebaseConfig } from './constants';
+import axios from 'axios';
+
+const BASE_URL_API = 'http://52.220.161.34:8081';
+// const BASE_URL_API = 'http://127.0.0.1:8085';
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
@@ -27,34 +31,26 @@ const copyContent = async (text: any) => {
 }
 
 
-export const copyToClipboard = (text: any) => {
-  // var dummy = document.createElement("textarea");
-  // // to avoid breaking orgain page when copying more words
-  // // cant copy when adding below this code
-  // // dummy.style.display = 'none'
-  // document.body.appendChild(dummy);
-  // //Be careful if you use texarea. setAttribute('value', value), which works with "input" does not work with "textarea". – Eduard
-  // dummy.value = text;
-  // dummy.select();
-  // document.execCommand("copy");
-  // document.body.removeChild(dummy);
-}
-
-
 export const getMessagingToken = async () => {
   // debugger
   let currentToken = "";
   if (!messaging) return;
   try {
-    // Web Push certificates: https://prnt.sc/OARpF8vQB5av
-    currentToken = await messaging.getToken({
-      // vapidKey: process.env.REACT_APP_FIREBASE_FCM_VAPID_KEY,
+      // Web Push certificates: https://prnt.sc/OARpF8vQB5av
+      currentToken = await messaging.getToken({
       // vapidKey: 'BCnamhfY7rvjTs4CDvtr072jKgOOIAtY9h_7rhk4IU5SbOTDQ3ehddBXCyPrDKgBuo7dhxwzFOrt8qByNiODu4c',
       vapidKey: 'BKGk_V4q4oYvwglTnR2N-y5-xRBlMRI3zRRHE-VQQ21nt-1Kzd1M78mIjRik76R0AZEEoDGPzLVOEjWeLdN25Lk',   
     });
     console.log("FCM registration token", currentToken);
 
-    copyContent(currentToken);
+    
+    axios.post(BASE_URL_API + `/api/save-device-token`, {
+      'device_token': currentToken,
+    })
+    .then(res => { 
+      console.log(res.data || '', 'ressssssss');
+    })
+    .catch(error => console.log(error));
 
     
   } catch (error) {
